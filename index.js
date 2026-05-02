@@ -4,6 +4,14 @@ const { Player } = require('discord-player');
 const { DefaultExtractors } = require('@discord-player/extractor');
 const fs = require('fs');
 const path = require('path');
+const http = require('http'); 
+
+
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write("OhioBot is alive and running on Render!");
+    res.end();
+}).listen(process.env.PORT || 8080); 
 
 const client = new Client({
     intents: [
@@ -24,6 +32,7 @@ client.player = new Player(client, {
     }
 });
 
+
 client.player.events.on('error', (queue, error) => console.log(`❌ [Помилка черги] ${error.message}`));
 client.player.events.on('playerError', (queue, error) => console.log(`❌ [Помилка плеєра] ${error.message}`));
 
@@ -42,7 +51,6 @@ client.commands = new Collection();
 
 
 const commandsPath = path.join(__dirname, 'commands');
-
 const loadCommands = (dir) => {
     if (!fs.existsSync(dir)) return console.log(`⚠️ Папка ${dir} не знайдена!`);
     
@@ -68,10 +76,10 @@ const loadCommands = (dir) => {
         }
     }
 };
-
 loadCommands(commandsPath);
 
-client.once('ready', (c) => { 
+
+client.once('clientReady', (c) => { 
     console.log(`🚀 Бот онлайн як ${c.user.tag}`);
     console.log(`📊 Завантажено команд: ${client.commands.size}`);
 });
@@ -89,7 +97,6 @@ client.on('messageCreate', async (message) => {
 
     if (command) {
         try {
-
             await command.execute(client, message, args);
         } catch (error) {
             console.error(`❌ Помилка в команді ${commandName}:`, error);

@@ -1,0 +1,46 @@
+# --- Залежності проекту ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# yarn.lock
+
+# --- Середовище та Секрети ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# --- VS Code (Твій редактор) ---
+.vscode/*
+!.vscode/extensions.json
+.history/
+*.code-workspace
+
+# --- Ubuntu / Linux специфіка ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# --- Логи та тимчасові файли ---
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+dist/
+build/
+out/
